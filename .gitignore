@@ -2,4 +2,5 @@
 dist
 working
 master
+.vscode
 .*.swp
