@@ -28,7 +28,7 @@ learnjs.problemView = function(data) {
   function checkAnswer() {
     var answer = view.find('.answer').val();
     var test = problemData.code.replace('__', answer) + '; problem();';
-    return eval(); // TODO: replace with sandboxed eval()
+    return eval(test); // TODO: replace with sandboxed eval()
   }
 
   function checkAnswerClick() {
