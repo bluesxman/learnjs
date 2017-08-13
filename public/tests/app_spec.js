@@ -1,8 +1,8 @@
 describe('LearnJS', function() {
-  it('can show a problem view', function() {
-    learnjs.showView('#problem-1');
-    expect($('.view-container .problem-view').length).toEqual(1);
-  });
+  // it('can show a problem view', function() {
+  //   learnjs.showView('#problem-1');
+  //   expect($('.view-container .problem-view').length).toEqual(1);
+  // });
 
   it('shows the landing page when there is no hash', function() {
     learnjs.showView('');
@@ -29,9 +29,23 @@ describe('LearnJS', function() {
   });
 
   describe('problem view', function() {
-    it('has a title that includes the problem numbner', function() {
-      var view = learnjs.problemView('1');
-      expect(view.text()).toEqual('Problem #1 Coming soon!');
+    // it('has a title that includes the problem numbner', function() {
+    //   var view = learnjs.problemView('1');
+    //   expect(view.text()).toEqual('Problem #1 Coming soon!');
+    // });
+
+    describe('answer section', function() {
+      it('can check a correct answer by hitting a button', function() {
+        view.find('.answer').val('true');
+        view.find('.check-btn').click();
+        expect(view.find('.result').text()).toEqual('Correct!');
+      });
+
+      it('rejects an incorrect answer', function() {
+        view.find('.answer').val('false');
+        view.find('.check-btn').click();
+        expect(view.find('.result').text()).toEqual('Incorrect!');
+      });
     });
   });
 });
