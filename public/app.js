@@ -13,14 +13,33 @@ learnjs.problems = [
   }
 ];
 
+learnjs.template = function(name) {
+  return $('.templates .' + name).clone();
+}
+
 learnjs.applyObject = function(obj, elem) {
   for (var key in obj) {
     elem.find('[data-name="' + key + '"]').text(obj[key]);
   }
 };
 
-learnjs.template = function(name) {
-  return $('.templates .' + name).clone();
+learnjs.flashElement = function(elem, content) {
+  elem.fadeOut('fast', function() {
+    elem.html(content);
+    elem.fadeIn();
+  });
+}
+
+learnjs.buildCorrectFlash = function (problemNum) {
+    var correctFlash = learnjs.template('correct-flash');
+    var link = correctFlash.find('a');
+    if (problemNum < learnjs.problems.length) {
+      link.attr('href', '#problem-' + (problemNum + 1));
+    } else {
+      link.attr('href', '');
+      link.text("You're Finished!");
+    }
+    return correctFlash;
 }
 
 learnjs.problemView = function(data) {
@@ -35,28 +54,9 @@ learnjs.problemView = function(data) {
     return eval(test); // TODO: replace with sandboxed eval()
   }
 
-  learnjs.flashElement = function(elem, content) {
-    elem.fadeOut('fast', function() {
-      elem.html(content);
-      elem.fadeIn();
-    });
-  }
-
-  learnjs.buildCorrectFlash = function(problemNum) {
-      var correctFlash = learnjs.template('correct-flash');
-      var link = correctFlash.find('a');
-      if (problemNum < learnjs.problems.length) {
-        link.attr('href', '#problem-' + (problemNum + 1));
-      } else {
-        link.attr('href', '');
-        link.text("You're Finished!");
-      }
-      return correctFlash;
-  }
-
   function checkAnswerClick() {
     if (checkAnswer()) {
-      var correctFlash = buildCorrectFlash(problemNumber);
+      var correctFlash = learnjs.buildCorrectFlash(problemNumber);
       learnjs.flashElement(resultFlash, correctFlash);
     } else {
       learnjs.flashElement(resultFlash, 'Incorrect!');
